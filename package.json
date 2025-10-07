@@ -13,10 +13,10 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "webpack serve",
     "build": "webpack",
-    "format": "prettier src --write && eslint src --fix"
+    "format": "prettier src tests --write && eslint src tests --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

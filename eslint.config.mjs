@@ -10,11 +10,17 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ["webpack.config.js", babel.config.js],
+    files: ["webpack.config.js"],
     languageOptions: {
       sourceType: "script",
       ecmaVersion: "latest",
       globals: globals.node,
+    },
+  },
+  {
+    files: ['tests/**/*.js'],
+    languageOptions: {
+      globals: globals.jest,
     },
   },
 ]);
