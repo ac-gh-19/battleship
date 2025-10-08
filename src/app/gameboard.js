@@ -1,12 +1,14 @@
 import { cellStates, createCell } from "./cell";
 class Gameboard {
   constructor(size) {
-    this.board = this.createBoard(size);
+    this.board = this.initBoard(size);
     this.boardSize = size;
     this.ships = [];
+    this.hitCells = [];
+    this.missedCells = [];
   }
 
-  createBoard(size) {
+  initBoard(size) {
     let board = [];
     for (let i = 0; i < size; ++i) {
       let row = [];
@@ -17,6 +19,10 @@ class Gameboard {
     }
     return board;
   }
+
+  // Coordinates are [x,y] where x = horizontal position on board
+  // y = vertical position on board ,[2,3] would mean 2 position right
+  // and 3 position down accessed at this.board[3][2]
 
   placeShip(ship, [x, y], direction = "horizontal") {
     if (this.isOutOfBounds([x, y], ship.length, direction)) {
@@ -33,15 +39,30 @@ class Gameboard {
       let cell = this.board[yi][xi];
       cell.ship = ship;
       cell.state = cellStates.SHIP;
-      this.board[yi][xi] = cell;
     }
 
     this.ships.push(ship);
     return true;
   }
 
-  // receiveAttack([x, y]) {
-  // }
+  receiveAttack([x, y]) {
+    let cell = this.board[y][x];
+    if (cell.isAttacked) {
+      return false;
+    }
+
+    cell.isAttacked = true;
+
+    if (cell.ship) {
+      let ship = cell.ship;
+      ship.hit();
+      cell.state = cellStates.HIT;
+    } else {
+      cell.state = cellStates.MISS;
+    }
+
+    return true;
+  }
 
   // Helper Functions
   isOutOfBounds([x, y], length, direction) {
