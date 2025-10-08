@@ -47,6 +47,7 @@ test("Placing Ship Correctly", () => {
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
   ]);
+  expect(game.ships.length).toBe(1);
 
   let ship2 = new Ship(2);
   game.placeShip(ship2, [4, 3], "vertical");
@@ -57,6 +58,7 @@ test("Placing Ship Correctly", () => {
     [0, 0, 0, 0, ship2],
     [0, 0, 0, 0, ship2],
   ]);
+  expect(game.ships.length).toBe(2);
 
   let ship3 = new Ship(4);
   game.placeShip(ship3, [0, 2], "horizontal");
@@ -67,4 +69,44 @@ test("Placing Ship Correctly", () => {
     [0, 0, 0, 0, ship2],
     [0, 0, 0, 0, ship2],
   ]);
+  expect(game.ships.length).toBe(3);
+});
+
+test("Placing Ship on Overlapping Ship", () => {
+  let game = new Gameboard(5);
+  let obstacle = new Ship(3);
+  game.placeShip(obstacle, [1, 2], "horizontal");
+  //   [ how the gameboard looks
+  //     [0,0,0,0,0],
+  //     [0,0,0,0,0],
+  //     [0,1,1,1,0],
+  //     [0,0,0,0,0],
+  //     [0,0,0,0,0]
+  //   ]
+
+  let ship = new Ship(3);
+  expect(() => game.placeShip(ship, [1, 1], "vertical")).toThrow(
+    "Ship placed on overlapping ship",
+  );
+
+  expect(() => game.placeShip(ship, [0, 2], "horizontal")).toThrow(
+    "Ship placed on overlapping ship",
+  );
+
+  expect(() => game.placeShip(ship, [2, 0], "vertical")).toThrow(
+    "Ship placed on overlapping ship",
+  );
+});
+
+test("Ship Receives Attack", () => {
+  let game = new Gameboard(3);
+  let ship = new Ship(2);
+  game.placeShip(ship, [0, 0], "horizontal");
+
+  game.receiveAttack([2, 0]);
+  expect(ship.health).toBe(2);
+  game.receiveAttack([0, 0]);
+  expect(ship.health).toBe(1);
+  game.receiveAttack([1, 0]);
+  expect(ship.health).toBe(0);
 });
