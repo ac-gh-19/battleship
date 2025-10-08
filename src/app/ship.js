@@ -7,7 +7,6 @@ class Ship {
 
   hit() {
     if (this.health == 0) return;
-
     this.health--;
     if (this.isShipSunk()) this.isSunk = true;
   }
