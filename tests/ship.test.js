@@ -27,11 +27,10 @@ test("Hitting Ship", () => {
 });
 
 test("Sinking Ship", () => {
-    let ship = new Ship(1);
-    console.log(ship);
-    expect(ship.isShipSunk()).toBe(false);
-    ship.hit();
-    expect(ship.isShipSunk()).toBe(true);
-    ship.hit();
-    expect(ship.isShipSunk()).toBe(true);
-})
+  let ship = new Ship(1);
+  expect(ship.isShipSunk()).toBe(false);
+  ship.hit();
+  expect(ship.isShipSunk()).toBe(true);
+  ship.hit();
+  expect(ship.isShipSunk()).toBe(true);
+});

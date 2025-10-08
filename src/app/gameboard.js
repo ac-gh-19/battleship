@@ -16,11 +16,17 @@ class Gameboard {
     }
 
     for (let i = 0; i < ship.length; ++i) {
-      let xi = direction == "horizontal" ? x : x + i;
-      let yi = direction == "vertical" ? y : y + i;
-      if (this.board[xi][yi] != 0) {
+      let xi = direction == "horizontal" ? x + i : x;
+      let yi = direction == "vertical" ? y + i : y; 
+      if (this.board[yi][xi] != 0) {
         throw new Error("Ship already placed in this location");
       }
+    }
+
+    for (let i = 0; i < ship.length; ++i) {
+      let xi = direction == "horizontal" ? x + i : x;
+      let yi = direction == "vertical" ? y + i : y;
+      this.board[yi][xi] = ship;
     }
   }
 
@@ -28,6 +34,7 @@ class Gameboard {
     if (direction == "horizontal") {
       return x + length > this.boardSize;
     }
+    // direction = vertical
     return y + length > this.boardSize;
   }
 }
