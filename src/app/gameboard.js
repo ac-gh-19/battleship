@@ -16,26 +16,26 @@ class Gameboard {
     }
 
     for (let i = 0; i < ship.length; ++i) {
-      let xi = direction == "horizontal" ? x : x + i;
-      let yi = direction == "vertical" ? y : y + i; 
-      if (this.board[xi][yi] != 0) {
+      let xi = direction == "horizontal" ? x + i : x;
+      let yi = direction == "vertical" ? y + i : y; 
+      if (this.board[yi][xi] != 0) {
         throw new Error("Ship already placed in this location");
       }
     }
 
     for (let i = 0; i < ship.length; ++i) {
-      let xi = direction == "horizontal" ? x : x + i;
-      let yi = direction == "vertical" ? y : y + i;
-      this.board[xi][yi] = ship;
+      let xi = direction == "horizontal" ? x + i : x;
+      let yi = direction == "vertical" ? y + i : y;
+      this.board[yi][xi] = ship;
     }
   }
 
   isOutOfBounds([x, y], length, direction) {
     if (direction == "horizontal") {
-      return y + length > this.boardSize;
+      return x + length > this.boardSize;
     }
     // direction = vertical
-    return x + length > this.boardSize;
+    return y + length > this.boardSize;
   }
 }
 

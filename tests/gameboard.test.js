@@ -18,20 +18,20 @@ test("Out of Bounds Ship Placement", () => {
   let game = new Gameboard(10);
   let ship = new Ship(5);
   expect(() => {
-    game.placeShip(ship, [6, 0], "vertical");
+    game.placeShip(ship, [0, 6], "vertical");
   }).toThrow("Cannot place ship here - out of bounds");
 
   expect(() => {
-    game.placeShip(ship, [0, 6]);
+    game.placeShip(ship, [6, 0], "horizontal");
   }).toThrow("Cannot place ship here - out of bounds");
 
   let ship2 = new Ship(2);
   expect(() => {
-    game.placeShip(ship2, [9, 5], "vertical");
+    game.placeShip(ship2, [5, 9], "vertical");
   }).toThrow("Cannot place ship here - out of bounds");
 
   expect(() => {
-    game.placeShip(ship2, [5, 9]);
+    game.placeShip(ship2, [9, 5]);
   }).toThrow("Cannot place ship here - out of bounds");
 });
 
@@ -49,7 +49,7 @@ test("Placing Ship Correctly", () => {
   ]);
 
   let ship2 = new Ship(2);
-  game.placeShip(ship2, [3, 4], "vertical");
+  game.placeShip(ship2, [4, 3], "vertical");
   expect(game.board).toEqual([
     [ship, ship, ship, 0, 0],
     [0, 0, 0, 0, 0],
@@ -59,7 +59,7 @@ test("Placing Ship Correctly", () => {
   ]);
 
   let ship3 = new Ship(4);
-  game.placeShip(ship3, [2, 0], "horizontal");
+  game.placeShip(ship3, [0, 2], "horizontal");
   expect(game.board).toEqual([
     [ship, ship, ship, 0, 0],
     [0, 0, 0, 0, 0],
