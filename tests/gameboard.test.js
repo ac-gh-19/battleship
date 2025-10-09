@@ -216,3 +216,23 @@ test("Board Cell is Already Attacked", () => {
   game.receiveAttack([1, 0]);
   expect(game.receiveAttack([1, 0])).toBe(false);
 });
+
+test("All Ships Sunk", () => {
+  let game = new Gameboard(3);
+  expect(game.allShipsSunk()).toBe(true);
+  
+  let ship = new Ship(1);
+  game.placeShip(ship, [0,0], "horizontal");
+  expect(game.allShipsSunk()).toBe(false);
+
+  game.receiveAttack([0,0]);
+  expect(game.allShipsSunk()).toBe(true);
+
+  let ship2 = new Ship(2);
+  game.placeShip(ship2, [0,1], "horizontal");
+
+  game.receiveAttack([0,1]);
+  expect(game.allShipsSunk()).toBe(false);
+  game.receiveAttack([1,1]);
+  expect(game.allShipsSunk()).toBe(true);
+})

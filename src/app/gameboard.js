@@ -69,6 +69,10 @@ class Gameboard {
     return true;
   }
 
+  allShipsSunk() {
+    return this.ships.every((ship) => (ship.health == 0))
+  }
+
   // Helper Functions
   isOutOfBounds([x, y], length, direction) {
     if (direction == "horizontal") {
