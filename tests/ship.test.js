@@ -4,11 +4,13 @@ test("Initializes Ship", () => {
   expect(new Ship(3)).toEqual({
     length: 3,
     health: 3,
+    positions: []
   });
 
   expect(new Ship(5)).toEqual({
     length: 5,
     health: 5,
+    positions: []
   });
 });
 

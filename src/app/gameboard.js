@@ -33,15 +33,18 @@ class Gameboard {
       throw new Error("Ship placed on overlapping ship");
     }
 
+    let shipPositions = [];
     for (let i = 0; i < ship.length; ++i) {
       let xi = direction == "horizontal" ? x + i : x;
       let yi = direction == "vertical" ? y + i : y;
       let cell = this.board[yi][xi];
+      shipPositions.push([xi, yi]);
       cell.ship = ship;
       cell.state = cellStates.SHIP;
     }
 
     this.ships.push(ship);
+    ship.positions = shipPositions;
     return true;
   }
 
@@ -57,8 +60,10 @@ class Gameboard {
       let ship = cell.ship;
       ship.hit();
       cell.state = cellStates.HIT;
+      this.hitCells.push([x,y])
     } else {
       cell.state = cellStates.MISS;
+      this.missedCells.push([x,y])
     }
 
     return true;
