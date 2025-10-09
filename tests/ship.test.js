@@ -3,13 +3,11 @@ import Ship from "../src/app/ship.js";
 test("Initializes Ship", () => {
   expect(new Ship(3)).toEqual({
     length: 3,
-    isSunk: false,
     health: 3,
   });
 
   expect(new Ship(5)).toEqual({
     length: 5,
-    isSunk: false,
     health: 5,
   });
 });
@@ -28,9 +26,9 @@ test("Hitting Ship", () => {
 
 test("Sinking Ship", () => {
   let ship = new Ship(1);
-  expect(ship.isShipSunk()).toBe(false);
+  expect(ship.isSunk()).toBe(false);
   ship.hit();
-  expect(ship.isShipSunk()).toBe(true);
+  expect(ship.isSunk()).toBe(true);
   ship.hit();
-  expect(ship.isShipSunk()).toBe(true);
+  expect(ship.isSunk()).toBe(true);
 });

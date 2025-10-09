@@ -1,5 +1,6 @@
 import Gameboard from "../src/app/gameboard.js";
 import Ship from "../src/app/ship.js";
+import { cellStates, createCell } from "../src/app/cell.js";
 
 test("Gameboard Initilization", () => {
   let game = new Gameboard(10);
@@ -7,7 +8,7 @@ test("Gameboard Initilization", () => {
   for (let i = 0; i < 10; ++i) {
     let row = [];
     for (let j = 0; j < 10; ++j) {
-      row[j] = 0;
+      row[j] = createCell();
     }
     expectedBoard.push(row);
   }
@@ -40,35 +41,59 @@ test("Placing Ship Correctly", () => {
   let ship = new Ship(3);
 
   game.placeShip(ship, [0, 0]);
-  expect(game.board).toEqual([
-    [ship, ship, ship, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-  ]);
+  expect(game.board[0][0]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship,
+      isAttacked: false
+  })
+  expect(game.board[0][1]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship,
+      isAttacked: false
+  })
+  expect(game.board[0][2]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship,
+      isAttacked: false
+  })
   expect(game.ships.length).toBe(1);
 
   let ship2 = new Ship(2);
   game.placeShip(ship2, [4, 3], "vertical");
-  expect(game.board).toEqual([
-    [ship, ship, ship, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, ship2],
-    [0, 0, 0, 0, ship2],
-  ]);
+  expect(game.board[3][4]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship2,
+      isAttacked: false
+  })
+  expect(game.board[4][4]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship2,
+      isAttacked: false
+  })
   expect(game.ships.length).toBe(2);
 
   let ship3 = new Ship(4);
   game.placeShip(ship3, [0, 2], "horizontal");
-  expect(game.board).toEqual([
-    [ship, ship, ship, 0, 0],
-    [0, 0, 0, 0, 0],
-    [ship3, ship3, ship3, ship3, 0],
-    [0, 0, 0, 0, ship2],
-    [0, 0, 0, 0, ship2],
-  ]);
+  expect(game.board[2][0]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship3,
+      isAttacked: false
+  })
+  expect(game.board[2][1]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship3,
+      isAttacked: false
+  })
+  expect(game.board[2][2]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship3,
+      isAttacked: false
+  })
+  expect(game.board[2][3]).toEqual({
+      state: cellStates.SHIP,
+      ship: ship3,
+      isAttacked: false
+  })
   expect(game.ships.length).toBe(3);
 });
 
@@ -76,7 +101,8 @@ test("Placing Ship on Overlapping Ship", () => {
   let game = new Gameboard(5);
   let obstacle = new Ship(3);
   game.placeShip(obstacle, [1, 2], "horizontal");
-  //   [ how the gameboard looks
+  // how the gameboard looks 0 = empty 1 = ship
+  //   [
   //     [0,0,0,0,0],
   //     [0,0,0,0,0],
   //     [0,1,1,1,0],
@@ -102,6 +128,12 @@ test("Ship Receives Attack", () => {
   let game = new Gameboard(3);
   let ship = new Ship(2);
   game.placeShip(ship, [0, 0], "horizontal");
+  // how the gameboard looks 0 = empty 1 = ship
+  // [
+  //   [1, 1, 0],
+  //   [0, 0, 0],
+  //   [0, 0, 0]
+  // ]
 
   game.receiveAttack([2, 0]);
   expect(ship.health).toBe(2);

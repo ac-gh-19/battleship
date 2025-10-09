@@ -1,17 +1,14 @@
 class Ship {
   constructor(length) {
     this.length = length;
-    this.isSunk = false;
     this.health = length;
   }
 
   hit() {
-    if (this.health == 0) return;
-    this.health--;
-    if (this.isShipSunk()) this.isSunk = true;
+    if (!this.isSunk()) this.health--;
   }
 
-  isShipSunk() {
+  isSunk() {
     return this.health == 0;
   }
 }
