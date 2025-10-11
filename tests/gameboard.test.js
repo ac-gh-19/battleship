@@ -135,13 +135,13 @@ test("Board Receives Attack", () => {
 test("Ship Registers Hit on Board Pos Attacked", () => {
   let game = new Gameboard(3);
   let ship = new Ship(2);
-  game.placeShip(ship, [0,0], "horizontal");
+  game.placeShip(ship, [0, 0], "horizontal");
 
-  game.receiveAttack([2,0]);
+  game.receiveAttack([2, 0]);
   expect(ship.health).toBe(2);
-  game.receiveAttack([0,0])
+  game.receiveAttack([0, 0]);
   expect(ship.health).toBe(1);
-  game.receiveAttack([1,0]);
+  game.receiveAttack([1, 0]);
   expect(ship.health).toBe(0);
 });
 
@@ -220,19 +220,19 @@ test("Board Cell is Already Attacked", () => {
 test("All Ships Sunk", () => {
   let game = new Gameboard(3);
   expect(game.allShipsSunk()).toBe(true);
-  
+
   let ship = new Ship(1);
-  game.placeShip(ship, [0,0], "horizontal");
+  game.placeShip(ship, [0, 0], "horizontal");
   expect(game.allShipsSunk()).toBe(false);
 
-  game.receiveAttack([0,0]);
+  game.receiveAttack([0, 0]);
   expect(game.allShipsSunk()).toBe(true);
 
   let ship2 = new Ship(2);
-  game.placeShip(ship2, [0,1], "horizontal");
+  game.placeShip(ship2, [0, 1], "horizontal");
 
-  game.receiveAttack([0,1]);
+  game.receiveAttack([0, 1]);
   expect(game.allShipsSunk()).toBe(false);
-  game.receiveAttack([1,1]);
+  game.receiveAttack([1, 1]);
   expect(game.allShipsSunk()).toBe(true);
-})
+});

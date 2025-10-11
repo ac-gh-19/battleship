@@ -60,17 +60,17 @@ class Gameboard {
       let ship = cell.ship;
       ship.hit();
       cell.state = cellStates.HIT;
-      this.hitCells.push([x,y])
+      this.hitCells.push([x, y]);
     } else {
       cell.state = cellStates.MISS;
-      this.missedCells.push([x,y])
+      this.missedCells.push([x, y]);
     }
 
     return true;
   }
 
   allShipsSunk() {
-    return this.ships.every((ship) => (ship.health == 0))
+    return this.ships.every((ship) => ship.health == 0);
   }
 
   // Helper Functions

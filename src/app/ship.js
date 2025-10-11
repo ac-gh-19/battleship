@@ -2,7 +2,7 @@ class Ship {
   constructor(length) {
     this.length = length;
     this.health = length;
-    this.positions = []
+    this.positions = [];
   }
 
   hit() {
