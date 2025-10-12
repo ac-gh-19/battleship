@@ -10,7 +10,10 @@ img {
 }
 
 body {
-  background: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at center, #13274a 0%, #0f0f0f 100%);
 }
 
 .header {
@@ -22,16 +25,20 @@ body {
   padding: 1rem;
 }
 
-.headerIcon {
+.header-icon {
   width: 3rem;
 }
 
-.githubIcon {
+.github-icon {
   position: absolute;
   right: 1rem;
   transition: transform 0.45s;
 }
 
-.githubIcon:hover {
+.github-icon:hover {
   transform: scale(1.15) rotate(1turn);
+}
+
+.app {
+  flex: 1 1 0;
 }
