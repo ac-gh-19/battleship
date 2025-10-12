@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../src/styles/styles.css";
 
 let num = 2;
 console.log(num);
