@@ -7,20 +7,25 @@
 
 img {
   display: block;
+  width: 100%;
 }
 
 body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at center, #13274a 0%, #0f0f0f 100%);
+  background: radial-gradient(
+    circle at center,
+    rgb(18, 18, 88) 0%,
+    #0f0f0f 100%
+  );
 }
 
 .header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   border-bottom: 1px solid white;
   padding: 1rem;
 }

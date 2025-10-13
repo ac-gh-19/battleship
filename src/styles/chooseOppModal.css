@@ -1,0 +1,63 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at center,
+    rgb(7, 7, 37) 0%,
+    rgb(14, 14, 15) 100%
+  );
+  z-index: 1;
+  border-radius: 1rem;
+  padding: clamp(2rem, 10vw, 3rem) clamp(2rem, 10vw, 5rem);
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.opponents-container {
+  display: flex;
+  gap: clamp(3rem, 5vw, 10rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.opponent-header {
+  font-size: clamp(1rem, 5vw, 2rem);
+}
+
+.opponent {
+  border: 1px solid white;
+  flex: 1 1 0;
+  min-width: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 14rem;
+  transition: transform 0.3s;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.player-option {
+  border: 1px solid black;
+  aspect-ratio: 1 / 1;
+}
+
+.exit-button {
+  width: 3rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.opponent:hover {
+  transform: scale(0.97);
+}
