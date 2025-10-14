@@ -1,10 +1,11 @@
-function initFrontPage(btnText) {
+function createFrontPage(btnText) {
   let div = document.createElement("div");
   div.classList.add("pregame-card");
 
   let input = document.createElement("input");
   input.id = "nameInput";
-  input.maxLength = "16";
+  input.maxLength = 16;
+  input.minLength = 3;
   input.placeholder = "Andrew";
   input.classList.add("input-name");
 
@@ -18,4 +19,4 @@ function initFrontPage(btnText) {
   return div;
 }
 
-export default initFrontPage;
+export default createFrontPage;

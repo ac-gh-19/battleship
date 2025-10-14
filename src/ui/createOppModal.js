@@ -2,7 +2,7 @@ import playerIMG from "../assets/player.svg";
 import computerIMG from "../assets/computer.svg";
 import exitBtnIMG from "../assets/closeBtn.svg";
 
-function initChooseOppModal(title, p1, p2) {
+function createChooseOppModal(title, p1, p2) {
   function createOppCard(name, imgSRC) {
     let opponent = document.createElement("div");
     opponent.classList.add("opponent");
@@ -48,4 +48,4 @@ function initChooseOppModal(title, p1, p2) {
   return container;
 }
 
-export default initChooseOppModal;
+export default createChooseOppModal;
