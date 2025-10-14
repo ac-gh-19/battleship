@@ -43,3 +43,7 @@ body {
 .github-icon:hover {
   transform: scale(1.15) rotate(1turn);
 }
+
+.app {
+  height: 100%;
+}

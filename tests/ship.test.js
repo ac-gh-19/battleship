@@ -1,4 +1,4 @@
-import Ship from "../src/app/ship.js";
+import Ship from "../src/logic/ship.js";
 
 test("Initializes Ship", () => {
   expect(new Ship(3)).toEqual({

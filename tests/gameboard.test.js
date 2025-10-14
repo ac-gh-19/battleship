@@ -1,6 +1,6 @@
-import Gameboard from "../src/app/gameboard.js";
-import Ship from "../src/app/ship.js";
-import { cellStates, createCell } from "../src/app/cell.js";
+import Gameboard from "../src/logic/gameboard.js";
+import Ship from "../src/logic/ship.js";
+import { cellStates, createCell } from "../src/logic/cell.js";
 
 test("Gameboard Initilization", () => {
   let game = new Gameboard(10);

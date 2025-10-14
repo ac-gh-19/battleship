@@ -1,6 +1,6 @@
-import GameController from "../src/app/gameController.js";
-import Player from "../src/app/player.js";
-import Ship from "../src/app/ship.js";
+import GameController from "../src/logic/gameController.js";
+import Player from "../src/logic/player.js";
+import Ship from "../src/logic/ship.js";
 
 // We've already tested the Player, Ship, and Gameboard functions individually.
 // In theory, this means the GameController functions should work since they

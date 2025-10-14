@@ -6,11 +6,13 @@ function createFrontPage(btnText) {
   input.id = "nameInput";
   input.maxLength = 16;
   input.minLength = 3;
-  input.placeholder = "Andrew";
+  input.placeholder = "Enter a Name";
   input.classList.add("input-name");
+  input.id = "inputName";
 
   let btn = document.createElement("button");
   btn.classList.add("play-btn");
+  btn.id = "playBtn";
   btn.textContent = btnText;
 
   div.appendChild(input);

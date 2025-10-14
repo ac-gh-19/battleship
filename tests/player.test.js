@@ -1,5 +1,5 @@
-import Player from "../src/app/player.js";
-import Gameboard from "../src/app/gameboard.js";
+import Player from "../src/logic/player.js";
+import Gameboard from "../src/logic/gameboard.js";
 
 test("Player Initialization", () => {
   let cpu = new Player();

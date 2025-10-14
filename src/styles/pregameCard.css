@@ -39,3 +39,8 @@
 .input-name::placeholder {
   color: white;
 }
+
+.input-name::placeholder {
+  color: grey;
+  transform: scale(.9);
+}
