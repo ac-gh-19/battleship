@@ -9,17 +9,21 @@ export default class GameController {
   // who is the current Player?
   // switch to the other player
   switchTurn() {
-    this.currentPlayer === this.player1
-      ? (this.currentPlayer = this.player2)
-      : (this.currentPlayer = this.player1);
+    if (this.currentPlayer === this.player1) {
+      this.currentPlayer = this.player2;
+    } else {
+      this.currentPlayer = this.player1;
+    }
   }
 
   // opponent
   makeMove([x, y]) {
     let opponent;
-    this.currentPlayer === this.player1
-      ? (opponent = this.player2)
-      : (opponent = this.player1);
+    if (this.currentPlayer === this.player1) {
+      opponent = this.player2;
+    } else {
+      opponent = this.player1;
+    }
 
     if (this.currentPlayer.attack(opponent, [x, y])) {
       if (this.gameOver()) {

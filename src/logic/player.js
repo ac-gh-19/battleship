@@ -1,8 +1,8 @@
 import Gameboard from "./gameboard.js";
 class Player {
-  constructor(name = "CPU", type = "Computer") {
+  constructor(name = "CPU") {
     this.name = name;
-    this.type = type;
+    name === "CPU" ? (this.type = "Computer") : (this.type = "Human");
     this.gameboard = new Gameboard(10);
   }
 

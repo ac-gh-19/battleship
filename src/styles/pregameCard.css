@@ -42,5 +42,5 @@
 
 .input-name::placeholder {
   color: grey;
-  transform: scale(.9);
+  transform: scale(0.9);
 }

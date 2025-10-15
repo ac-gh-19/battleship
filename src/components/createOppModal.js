@@ -23,7 +23,7 @@ function createOppSelectionModal(title) {
 
   let container = document.createElement("div");
   container.classList.add("opp-selection-modal");
-  container.id = "oppSelectionModal"
+  container.id = "oppSelectionModal";
 
   let header = document.createElement("header");
   let h1 = document.createElement("h1");

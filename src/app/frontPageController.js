@@ -1,5 +1,5 @@
 import createFrontPage from "../components/createFrontPage";
-import { loadOppSelection } from "./oppModalController";
+import { loadOppSelection } from "./oppSelectionController";
 
 export function loadFrontPage(inputName = "") {
   let frontPage = createFrontPage("ENTER THE WATERS");
@@ -13,12 +13,14 @@ export function loadFrontPage(inputName = "") {
   console.log(name);
 
   playBtn.addEventListener("click", () => {
-    if (name.value.trim().length == 0) {
+    if (name.value.trim().length === 0) {
       alert("You must enter a name");
-    } else if (name.value.trim() < 3) {
-        alert("Your name is too short")
+    } else if (name.value.trim().length < 3) {
+      alert("Your name is too short");
+    } else if (name.value === "CPU") {
+      alert("That name is forbidden");
     } else {
-        playBtn.disabled = true;
+      playBtn.disabled = true;
       loadOppSelection(name.value.trim());
     }
   });

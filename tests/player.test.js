@@ -3,7 +3,7 @@ import Gameboard from "../src/logic/gameboard.js";
 
 test("Player Initialization", () => {
   let cpu = new Player();
-  let player = new Player("AC", "Human");
+  let player = new Player("AC");
 
   expect(cpu).toEqual({
     name: "CPU",

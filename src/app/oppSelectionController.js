@@ -1,20 +1,14 @@
 import createOppSelectionModal from "../components/createOppModal";
 import { loadFrontPage } from "./frontPageController";
+import { loadGame } from "./loadGameController";
 
-export function loadOppSelection(name) {
-    let modal = document.querySelector("#modal");
-    
-    // oppSelectionModal already exists from previous click
-    // and we just need to toggle it's display and update name
-    if (document.querySelector("#oppSelectionModal")) {
-        modal.classList.toggle("show");
-        document.querySelector("#oppModalTitle").textContent = `Choose Your Opponent ${name}`;
-        return;
-    };
-
+export function loadOppSelection(playerName) {
   let oppSelectionModal = createOppSelectionModal(
-    `Choose Your Opponent ${name}`,
+    `Choose Your Opponent ${playerName}`,
   );
+
+  let modal = document.querySelector("#modal");
+  modal.textContent = "";
   modal.appendChild(oppSelectionModal);
   modal.classList.toggle("show");
 
@@ -26,11 +20,12 @@ export function loadOppSelection(name) {
     alert("To Be Added");
   });
   oppCpu.addEventListener("click", () => {
+    modal.classList.toggle("show");
     alert("oppClicked");
+    loadGame(playerName, "CPU");
   });
   exitBtn.addEventListener("click", () => {
     modal.classList.toggle("show");
-    loadFrontPage(name)
-  })
-  
+    loadFrontPage(playerName);
+  });
 }
