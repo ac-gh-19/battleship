@@ -26,11 +26,13 @@ class Gameboard {
 
   placeShip(ship, [x, y], direction = "horizontal") {
     if (this.isOutOfBounds([x, y], ship.length, direction)) {
-      throw new Error("Cannot place ship here - out of bounds");
+      return false;
+      // throw new Error("Cannot place ship here - out of bounds");
     }
 
     if (this.isOverlappingShip([x, y], ship.length, direction)) {
-      throw new Error("Ship placed on overlapping ship");
+      return false;
+      // throw new Error("Ship placed on overlapping ship");
     }
 
     let shipPositions = [];

@@ -1,4 +1,4 @@
-function createBoard(onCellClick) {
+function createBoard() {
   let boardWrapper = document.createElement("div");
   boardWrapper.classList.add("board-wrapper");
 
@@ -31,7 +31,6 @@ function createBoard(onCellClick) {
       cell.classList.add("cell");
       cell.dataset.x = x;
       cell.dataset.y = y;
-      cell.addEventListener("click", () => onCellClick(x, y));
       board.appendChild(cell);
     }
   }
