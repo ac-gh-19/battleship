@@ -1,4 +1,3 @@
-import { cellStates, createCell } from "./cell";
 class Gameboard {
   constructor(size) {
     this.board = this.initBoard(size);
@@ -13,7 +12,7 @@ class Gameboard {
     for (let i = 0; i < size; ++i) {
       let row = [];
       for (let j = 0; j < size; ++j) {
-        row[j] = createCell();
+        row[j] = null;
       }
       board.push(row);
     }
@@ -39,10 +38,8 @@ class Gameboard {
     for (let i = 0; i < ship.length; ++i) {
       let xi = direction == "horizontal" ? x + i : x;
       let yi = direction == "vertical" ? y + i : y;
-      let cell = this.board[yi][xi];
+      this.board[yi][xi] = ship;
       shipPositions.push([xi, yi]);
-      cell.ship = ship;
-      cell.state = cellStates.SHIP;
     }
 
     this.ships.push(ship);
@@ -51,20 +48,15 @@ class Gameboard {
   }
 
   receiveAttack([x, y]) {
-    let cell = this.board[y][x];
-    if (cell.isAttacked) {
+    let ship = this.board[y][x];
+    if (!ship) {
       return false;
     }
 
-    cell.isAttacked = true;
-
-    if (cell.ship) {
-      let ship = cell.ship;
+    if (ship) {
       ship.hit();
-      cell.state = cellStates.HIT;
       this.hitCells.push([x, y]);
     } else {
-      cell.state = cellStates.MISS;
       this.missedCells.push([x, y]);
     }
 
@@ -88,7 +80,7 @@ class Gameboard {
     for (let i = 0; i < length; ++i) {
       let xi = direction == "horizontal" ? x + i : x;
       let yi = direction == "vertical" ? y + i : y;
-      if (this.board[yi][xi].ship != null) {
+      if (this.board[yi][xi]) {
         return true;
       }
     }
