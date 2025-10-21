@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 class Gameboard {
   constructor(size) {
     this.board = this.initBoard(size);
@@ -26,12 +28,10 @@ class Gameboard {
   placeShip(ship, [x, y], direction = "horizontal") {
     if (this.isOutOfBounds([x, y], ship.length, direction)) {
       return false;
-      // throw new Error("Cannot place ship here - out of bounds");
     }
 
     if (this.isOverlappingShip([x, y], ship.length, direction)) {
       return false;
-      // throw new Error("Ship placed on overlapping ship");
     }
 
     let shipPositions = [];
@@ -43,24 +43,38 @@ class Gameboard {
     }
 
     this.ships.push(ship);
-    ship.positions = shipPositions;
+    shipPositions.forEach((position) => ship.positions.push(position));
     return true;
+  }
+
+  randomlyPlaceShips(lengthOfShipsToPlace) {
+    for (let lengthOfShip of lengthOfShipsToPlace) {
+      let placed = false;
+      while (!placed) {
+        let { x, y, direction } = this.getRandMove();
+        if (this.placeShip(new Ship(lengthOfShip), [x, y], direction)) {
+          placed = true;
+        }
+      }
+    }
   }
 
   receiveAttack([x, y]) {
     let ship = this.board[y][x];
+
     if (!ship) {
-      return false;
+      this.missedCells.push([x, y]);
+      return true;
     }
 
-    if (ship) {
+    // checks if we're sending attack to position already hit
+    if (ship && !this.hitCells.some(([xi, yi]) => x === xi && y == yi)) {
       ship.hit();
       this.hitCells.push([x, y]);
-    } else {
-      this.missedCells.push([x, y]);
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   allShipsSunk() {
@@ -85,6 +99,14 @@ class Gameboard {
       }
     }
     return false;
+  }
+
+  getRandMove() {
+    let x = Math.floor(Math.random() * 10);
+    let y = Math.floor(Math.random() * 10);
+    let direction = Math.random() < 0.5 ? "horizontal" : "vertical";
+
+    return { x, y, direction };
   }
 }
 

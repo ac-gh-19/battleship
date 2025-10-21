@@ -6,8 +6,6 @@ export default class GameController {
     this.winner = null;
   }
 
-  // who is the current Player?
-  // switch to the other player
   switchTurn() {
     if (this.currentPlayer === this.player1) {
       this.currentPlayer = this.player2;

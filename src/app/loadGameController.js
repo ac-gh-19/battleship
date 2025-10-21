@@ -1,25 +1,25 @@
 import GameController from "../logic/gameController";
 import Player from "../logic/player";
 import createBoard from "../components/createBoard";
-import { setupShips } from "./placeShipsController";
 import { createPlayerContainer } from "../components/createPlayerContainer";
 import { createGame } from "../components/createGameContainer";
+import { updateBoardUI } from "./helpers";
+import { clearBoardUI } from "./helpers";
 
-export function createPlayerAndContainer(playerName) {
-  let player = new Player(playerName);
-  let playerBoard = createBoard(playerName);
-  let playerContainer = createPlayerContainer(player, playerBoard);
-  return { player, playerContainer };
+function createPlayerWrapperContainer(player) {
+  let playerBoardUI = createBoard(player.name);
+  let playerContainer = createPlayerContainer(player, playerBoardUI);
+  return playerContainer;
 }
 
-export function loadGame(playerOneName, playerTwoName) {
+export function loadGame(playerOne, playerTwo) {
   let app = document.querySelector("#app");
   app.textContent = "";
 
-  let { player: playerOne, playerContainer: playerOneContainer } =
-    createPlayerAndContainer(playerOneName);
-  let { player: playerTwo, playerContainer: playerTwoContainer } =
-    createPlayerAndContainer(playerTwoName);
+  let playerOneContainer =
+    createPlayerWrapperContainer(playerOne);
+  let playerTwoContainer =
+    createPlayerWrapperContainer(playerTwo);
   let game = new GameController(playerOne, playerTwo);
 
   let { gameInfo, gameContainer } = createGame(playerOne, playerTwo);
@@ -29,23 +29,4 @@ export function loadGame(playerOneName, playerTwoName) {
 
   app.appendChild(gameInfo);
   app.appendChild(gameContainer);
-
-//   setupPlayerShips(playerOne);
-    setupShips(playerOne);
-    updateBoardUI(playerOne, playerOneContainer);
-  setupShips(playerTwo);
-  updateBoardUI(playerTwo, playerTwoContainer);
-  
-}
-
-export function updateBoardUI(player, playerContainer) {
-    for (let i = 0; i < player.gameboard.ships.length; ++i) {
-        let shipPositions = player.gameboard.ships[i].positions;
-        for (let [x,y] of shipPositions) {
-            let cell = playerContainer.querySelector(`[data-x="${x}"][data-y="${y}"]`);
-            if (player.gameboard.board[y][x].ship != null) {
-                cell.classList.add("ship");
-            }
-        }
-    }
 }

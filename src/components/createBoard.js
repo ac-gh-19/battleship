@@ -1,4 +1,4 @@
-function createBoard() {
+function createBoard(playerName) {
   let boardWrapper = document.createElement("div");
   boardWrapper.classList.add("board-wrapper");
 
@@ -25,6 +25,7 @@ function createBoard() {
 
   let board = document.createElement("div");
   board.classList.add("board");
+  board.dataset.board = playerName;
   for (let y = 0; y < 10; ++y) {
     for (let x = 0; x < 10; ++x) {
       let cell = document.createElement("div");
