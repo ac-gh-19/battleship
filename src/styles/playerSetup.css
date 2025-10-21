@@ -1,0 +1,22 @@
+.playerSetup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+  height: clamp(20rem, 60vw, 40rem);
+}
+
+.playerSetupOptions {
+  display: flex;
+  gap: clamp(1rem, 5vw, 3rem);
+}
+
+.playerSetupOptions > * {
+  padding: 1rem;
+  color: black;
+  border-radius: 1rem;
+  gap: 1rem;
+  flex: 1 1 0;
+  max-width: 10rem;
+}

@@ -1,5 +1,7 @@
 import createOppSelectionModal from "../components/createOppModal";
+import Player from "../logic/player";
 import { loadFrontPage } from "./frontPageController";
+import { loadSetupPage } from "./setupPageController";
 import { loadGame } from "./loadGameController";
 
 export function loadOppSelection(playerName) {
@@ -17,12 +19,25 @@ export function loadOppSelection(playerName) {
   let exitBtn = oppSelectionModal.querySelector("#exitBtn");
 
   oppPlayer.addEventListener("click", () => {
-    alert("To Be Added");
+    let p2 = new Player(prompt("Enter Opponents Name"));
+    let p1 = new Player(playerName);
+    modal.classList.toggle("show");
+    loadSetupPage(p1, () => {
+      loadSetupPage(p2, () => {
+        loadGame(p1, p2);
+      })
+    });
   });
   oppCpu.addEventListener("click", () => {
+    let p1 = new Player(playerName);
+    let p2 = new Player();
     modal.classList.toggle("show");
     alert("oppClicked");
-    loadGame(playerName, "CPU");
+    loadSetupPage(p1, () => {
+      loadSetupPage(p2, () => {
+        loadGame(p1, p2);
+      })
+    });
   });
   exitBtn.addEventListener("click", () => {
     modal.classList.toggle("show");
