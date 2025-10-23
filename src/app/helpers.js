@@ -1,26 +1,36 @@
-export function updateBoardUI(player) {
+export function updateBoardUI(player, setupPhase = false) {
   let boardUI = document.querySelector(`[data-board="${player.name}"]`);
-  for (let i = 0; i < player.gameboard.ships.length; ++i) {
-    let shipPositions = player.gameboard.ships[i].positions;
-    for (let [x, y] of shipPositions) {
-      let cell = boardUI.querySelector(
-        `[data-x="${x}"][data-y="${y}"]`,
-      );
-      if (player.gameboard.board[y][x]) {
-        cell.classList.add("ship");
+  if (setupPhase) {
+    for (let i = 0; i < player.gameboard.ships.length; ++i) {
+      let shipPositions = player.gameboard.ships[i].positions;
+      for (let [x, y] of shipPositions) {
+        let cell = boardUI.querySelector(`[data-x="${x}"][data-y="${y}"]`);
+        if (player.gameboard.board[y][x]) {
+          cell.classList.add("ship");
+        }
       }
     }
+    return;
+  }
+
+  let missedPositions = player.gameboard.missedCells;
+  let hitPositions = player.gameboard.hitCells;
+  for (let [x, y] of missedPositions) {
+    let cell = boardUI.querySelector(`[data-x="${x}"][data-y="${y}"]`);
+    cell.classList.add("miss");
+  }
+  for (let [x, y] of hitPositions) {
+    let cell = boardUI.querySelector(`[data-x="${x}"][data-y="${y}"]`);
+    cell.classList.add("hit");
   }
 }
 
 export function clearBoardUI(player) {
-    let boardUI = document.querySelector(`[data-board="${player.name}"]`);
-    for (let i = 0; i < player.gameboard.ships.length; ++i) {
+  let boardUI = document.querySelector(`[data-board="${player.name}"]`);
+  for (let i = 0; i < player.gameboard.ships.length; ++i) {
     let shipPositions = player.gameboard.ships[i].positions;
     for (let [x, y] of shipPositions) {
-      let cell = boardUI.querySelector(
-        `[data-x="${x}"][data-y="${y}"]`,
-      );
+      let cell = boardUI.querySelector(`[data-x="${x}"][data-y="${y}"]`);
       if (player.gameboard.board[y][x]) {
         cell.classList.remove("ship");
         player.gameboard.board[y][x] = null;

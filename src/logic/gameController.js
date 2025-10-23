@@ -26,7 +26,6 @@ export default class GameController {
     if (this.currentPlayer.attack(opponent, [x, y])) {
       if (this.gameOver()) {
         this.winner = this.currentPlayer;
-        return "GAME OVER";
       }
 
       this.switchTurn();

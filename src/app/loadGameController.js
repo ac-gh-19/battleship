@@ -5,28 +5,31 @@ import { createPlayerContainer } from "../components/createPlayerContainer";
 import { createGame } from "../components/createGameContainer";
 import { updateBoardUI } from "./helpers";
 import { clearBoardUI } from "./helpers";
-
-function createPlayerWrapperContainer(player) {
-  let playerBoardUI = createBoard(player.name);
-  let playerContainer = createPlayerContainer(player, playerBoardUI);
-  return playerContainer;
-}
+import { renderGameLayout, renderGameInfo, renderBoards } from "./gameView";
 
 export function loadGame(playerOne, playerTwo) {
   let app = document.querySelector("#app");
-  app.textContent = "";
-
-  let playerOneContainer =
-    createPlayerWrapperContainer(playerOne);
-  let playerTwoContainer =
-    createPlayerWrapperContainer(playerTwo);
   let game = new GameController(playerOne, playerTwo);
 
-  let { gameInfo, gameContainer } = createGame(playerOne, playerTwo);
+  let { gameInfo, p1Board, p2Board } = renderGameLayout(app, playerOne, playerTwo, createGame);
 
-  gameContainer.appendChild(playerOneContainer);
-  gameContainer.appendChild(playerTwoContainer);
+  renderBoards(playerOne, playerTwo);
+  renderGameInfo(gameInfo, game);
 
-  app.appendChild(gameInfo);
-  app.appendChild(gameContainer);
+  p1Board.addEventListener("click", (e) => {
+    if (game.currentPlayer != playerTwo) return;
+    let [x, y] = [e.target.dataset.x, e.target.dataset.y];
+    playMove(game, playerTwo, playerOne, [x,y], gameInfo)
+  })
+  p2Board.addEventListener("click", (e) => {
+    if (game.currentPlayer != playerOne) return;
+    let [x, y] = [e.target.dataset.x, e.target.dataset.y];
+    playMove(game, playerOne, playerTwo, [x,y], gameInfo)
+  });
 }
+
+function playMove(game, attacker, opponent, [x,y], gameInfo) {
+  game.makeMove([x,y]);
+  renderBoards(attacker, opponent);
+  renderGameInfo(gameInfo, game);
+};

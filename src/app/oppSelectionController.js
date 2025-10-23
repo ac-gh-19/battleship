@@ -25,7 +25,7 @@ export function loadOppSelection(playerName) {
     loadSetupPage(p1, () => {
       loadSetupPage(p2, () => {
         loadGame(p1, p2);
-      })
+      });
     });
   });
   oppCpu.addEventListener("click", () => {
@@ -36,7 +36,7 @@ export function loadOppSelection(playerName) {
     loadSetupPage(p1, () => {
       loadSetupPage(p2, () => {
         loadGame(p1, p2);
-      })
+      });
     });
   });
   exitBtn.addEventListener("click", () => {

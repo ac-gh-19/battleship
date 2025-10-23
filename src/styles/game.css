@@ -32,6 +32,10 @@
   padding-right: 3rem;
 }
 
+.player-container.inactive {
+  opacity: 0.3;
+}
+
 .player-info {
   display: flex;
   flex-direction: column;
@@ -79,4 +83,12 @@
 
 .cell.ship {
   background: green;
+}
+
+.cell.miss {
+  background: grey;
+}
+
+.cell.hit {
+  background: red;
 }

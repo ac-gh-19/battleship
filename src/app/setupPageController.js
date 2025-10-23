@@ -4,7 +4,7 @@ import { updateBoardUI } from "./helpers";
 import { clearBoardUI } from "./helpers";
 
 export function loadSetupPage(p, callback) {
-  let ships = [5,4,3,3,2];
+  let ships = [5, 4, 3, 3, 2];
 
   if (p.type == "Computer") {
     p.gameboard.randomlyPlaceShips(ships);
@@ -30,7 +30,7 @@ export function loadSetupPage(p, callback) {
     ships = [5, 4, 3, 3, 2, 2];
     p.gameboard.randomlyPlaceShips(ships);
     ships = [];
-    updateBoardUI(p);
+    updateBoardUI(p, true);
   });
 
   let dirBtn = btns.dirBtn;
@@ -43,30 +43,36 @@ export function loadSetupPage(p, callback) {
   resetBtn.addEventListener("click", () => {
     clearBoardUI(p);
     ships = [5, 4, 3, 3, 2, 2];
-  })
+  });
 
-  let nextBtn = btns.nextBtn; 
+  let nextBtn = btns.nextBtn;
   nextBtn.addEventListener("click", () => {
     if (ships.length != 0) {
-        alert("You must place all ships down");
+      alert("You must place all ships down");
     } else {
-        callback(p);
+      callback(p);
     }
-  })
+  });
 
-  let board = document.querySelector(`[data-board="${p.name}"]`)
+  let board = document.querySelector(`[data-board="${p.name}"]`);
   let cells = board.querySelectorAll(".cell");
-  cells.forEach(function(cell) {
+  cells.forEach(function (cell) {
     cell.addEventListener("click", () => {
-        if (ships.length == 0) {
-            alert("Press Continue");
-        } else {
-            if (p.gameboard.placeShip(new Ship(ships.pop()), [Number(cell.dataset.x), Number(cell.dataset.y)], dirBtn.textContent)) {
-                updateBoardUI(p);
-            };
+      if (ships.length == 0) {
+        alert("Press Continue");
+      } else {
+        if (
+          p.gameboard.placeShip(
+            new Ship(ships.pop()),
+            [Number(cell.dataset.x), Number(cell.dataset.y)],
+            dirBtn.textContent,
+          )
+        ) {
+          updateBoardUI(p, true);
         }
-        })
-  })
+      }
+    });
+  });
 }
 
 export function createSetupPage(player) {
@@ -87,7 +93,7 @@ export function createSetupPage(player) {
     { id: "rdmBtn", text: "Place Randomly" },
     { id: "dirBtn", text: "horizontal" },
     { id: "nextBtn", text: "Continue" },
-    { id: "resetBtn", text: "Reset" }
+    { id: "resetBtn", text: "Reset" },
   ];
 
   let createdBtns = {};
