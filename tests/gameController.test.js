@@ -8,8 +8,8 @@ import Ship from "../src/logic/ship.js";
 // testing the GameController as well to ensure they integrate correctly.
 
 test("Game Setup Initializes Two Player Instances", () => {
-  let player1 = new Player("AC", "Human");
-  let player2 = new Player("CPU", "Computer");
+  let player1 = new Player("AC");
+  let player2 = new Player("CPU");
   let game = new GameController(player1, player2);
   expect(game.player1).toBe(player1);
   expect(game.player2).toBe(player2);
@@ -29,21 +29,31 @@ test("Switches Turns Between Players", () => {
 
 test("Invalid Move Does Not Switch Turn", () => {
   let player1 = new Player("AC");
-  let player2 = new Player("CPU");
+  let player2 = new Player();
   let game = new GameController(player1, player2);
 
   expect(game.currentPlayer).toBe(game.player1);
   game.player1.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
   game.player2.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
   expect(game.makeMove([0, 0])).toBe(true);
-  expect(game.currentPlayer).toBe(game.player2);
-  expect(game.player2.gameboard.board[0][0].isAttacked).toBe(true);
-
-  // manually switch currentPlayer to player1 again
-  // because makeMove switches other player at end
-  game.currentPlayer = game.player1;
   expect(game.currentPlayer).toBe(game.player1);
   expect(game.makeMove([0, 0])).toBe(false);
+  expect(game.currentPlayer).toBe(game.player1);
+});
+
+test("Hitting Ship Doesn't Change Turn", () => {
+  let player1 = new Player("AC");
+  let player2 = new Player();
+  let game = new GameController(player1, player2);
+
+  expect(game.currentPlayer).toBe(game.player1);
+  game.player1.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
+  game.player2.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
+  expect(game.makeMove([0, 0])).toBe(true);
+  expect(game.currentPlayer).toBe(game.player1);
+  expect(game.makeMove([0, 1])).toBe(true);
+  expect(game.currentPlayer).toBe(game.player1);
+  expect(game.makeMove([0, 2])).toBe(true);
 });
 
 test("Attacking Affects Opponent's Board", () => {
@@ -55,12 +65,13 @@ test("Attacking Affects Opponent's Board", () => {
   game.player2.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
 
   game.makeMove([0, 0]);
-  expect(game.player2.gameboard.board[0][0].isAttacked).toBe(true);
+  expect(game.player2.gameboard.board[0][0].health).toBe(2);
 
-  // current player should now be player2 as
-  // makeMove calls switchTurn() at the end
+  // manually switch currentPlayer to player2
+  // because hitting ship doesn't change player turn;
+  game.currentPlayer = player2;
   game.makeMove([0, 0]);
-  expect(game.player1.gameboard.board[0][0].isAttacked).toBe(true);
+  expect(game.player1.gameboard.board[0][0].health).toBe(2);
 });
 
 test("Prevents Attacking the Same Position", () => {
@@ -69,9 +80,6 @@ test("Prevents Attacking the Same Position", () => {
   let game = new GameController(player1, player2);
 
   game.makeMove([0, 0]);
-  // manually switch currentPlayer to player1 again
-  // because makeMove switches other player at end
-  game.currentPlayer = game.player1;
   expect(game.makeMove([0, 0])).toBe(false);
 });
 
