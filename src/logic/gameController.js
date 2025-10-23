@@ -14,7 +14,6 @@ export default class GameController {
     }
   }
 
-  // opponent
   makeMove([x, y]) {
     let opponent;
     if (this.currentPlayer === this.player1) {
@@ -23,12 +22,14 @@ export default class GameController {
       opponent = this.player1;
     }
 
-    if (this.currentPlayer.attack(opponent, [x, y])) {
+    let result = this.currentPlayer.attack(opponent, [x, y]);
+    if (result) {
       if (this.gameOver()) {
         this.winner = this.currentPlayer;
       }
-
-      this.switchTurn();
+      if (result == "miss") {
+        this.switchTurn();
+      }
       return true;
     }
     return false;

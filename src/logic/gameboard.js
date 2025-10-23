@@ -60,21 +60,24 @@ class Gameboard {
   }
 
   receiveAttack([x, y]) {
+    let isAttacked =
+      this.hitCells.some(([xi, yi]) => xi == x && yi == y) ||
+      this.missedCells.some(([xi, yi]) => xi == x && yi == y);
+
+    if (isAttacked) return false;
+
     let ship = this.board[y][x];
+    let result;
 
     if (!ship) {
       this.missedCells.push([x, y]);
-      return true;
-    }
-
-    // checks if we're sending attack to position already hit
-    if (ship && !this.hitCells.some(([xi, yi]) => x === xi && y == yi)) {
+      result = "miss";
+    } else {
       ship.hit();
       this.hitCells.push([x, y]);
-      return true;
+      result = "hit";
     }
-
-    return false;
+    return result;
   }
 
   allShipsSunk() {
