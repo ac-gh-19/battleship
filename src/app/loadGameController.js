@@ -1,10 +1,5 @@
 import GameController from "../logic/gameController";
-import Player from "../logic/player";
-import createBoard from "../components/createBoard";
-import { createPlayerContainer } from "../components/createPlayerContainer";
 import { createGame } from "../components/createGameContainer";
-import { updateBoardUI } from "./helpers";
-import { clearBoardUI } from "./helpers";
 import { renderGameLayout, renderGameInfo, renderBoards } from "./gameView";
 
 export function loadGame(playerOne, playerTwo) {
@@ -25,11 +20,24 @@ export function loadGame(playerOne, playerTwo) {
     if (game.currentPlayer != playerOne) return;
     let [x, y] = [e.target.dataset.x, e.target.dataset.y];
     playMove(game, playerOne, playerTwo, [x,y], gameInfo)
+
+    if (playerTwo.type == "Computer" && !game.winner) {
+      setTimeout(() => {
+        playMove(game, playerOne, playerTwo, [x,y], gameInfo);
+      }, 1000)
+    }
   });
 }
 
 function playMove(game, attacker, opponent, [x,y], gameInfo) {
-  game.makeMove([x,y]);
+  if (attacker.type == "Computer") {
+    do {
+      ({x, y} = attacker.gameboard.getRandMove());
+    } while (!game.makeMove([x,y]));
+  } else {
+    game.makeMove([x,y]);
+  }
   renderBoards(attacker, opponent);
   renderGameInfo(gameInfo, game);
 };
+
