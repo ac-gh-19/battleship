@@ -2,26 +2,23 @@ import createFrontPage from "../components/createFrontPage";
 import { loadOppSelection } from "./oppSelectionController";
 
 export function loadFrontPage(inputName = "") {
-  let frontPage = createFrontPage("ENTER THE WATERS");
+  let { frontPage, playBtn, input } = createFrontPage("ENTER THE WATERS");
   let app = document.querySelector("#app");
   app.textContent = "";
-  app.appendChild(frontPage);
+  app.append(frontPage);
 
-  let playBtn = frontPage.querySelector("#playBtn");
-  let name = frontPage.querySelector("#inputName");
-  name.value = inputName;
-  console.log(name);
+  input.value = inputName;
 
   playBtn.addEventListener("click", () => {
-    if (name.value.trim().length === 0) {
+    if (input.value.trim().length === 0) {
       alert("You must enter a name");
-    } else if (name.value.trim().length < 3) {
+    } else if (input.value.trim().length < 3) {
       alert("Your name is too short");
-    } else if (name.value === "CPU") {
+    } else if (input.value === "CPU") {
       alert("That name is forbidden");
     } else {
       playBtn.disabled = true;
-      loadOppSelection(name.value.trim());
+      loadOppSelection(input.value.trim());
     }
   });
 }
