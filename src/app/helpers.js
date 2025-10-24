@@ -25,7 +25,7 @@ export function updateBoardUI(player, setupPhase = false) {
   }
 }
 
-export function clearBoardUI(player) {
+export function clearBoard(player) {
   let boardUI = document.querySelector(`[data-board="${player.name}"]`);
   for (let i = 0; i < player.gameboard.ships.length; ++i) {
     let shipPositions = player.gameboard.ships[i].positions;
@@ -33,6 +33,8 @@ export function clearBoardUI(player) {
       let cell = boardUI.querySelector(`[data-x="${x}"][data-y="${y}"]`);
       if (player.gameboard.board[y][x]) {
         cell.classList.remove("ship");
+        cell.classList.remove("valid");
+        cell.classList.remove("invalid");
         player.gameboard.board[y][x] = null;
       }
     }

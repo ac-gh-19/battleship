@@ -44,11 +44,16 @@
   padding-bottom: 0.5rem;
 }
 
+.player-info > h2 {
+  border-bottom: 1px solid white;
+}
+
 .board-wrapper {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
-  height: 100%;
+  width: 100%;
+  max-width: 35rem;
 }
 
 .bottom-cords {
@@ -79,6 +84,16 @@
 .cell {
   background: rgb(25, 25, 52);
   border: 1px solid rgb(204, 205, 205);
+}
+
+.cell.valid {
+  background: green;
+  box-shadow: 0rem 0rem 0.2rem green;
+}
+
+.cell.invalid {
+  background: red;
+  box-shadow: 0rem 0rem 0.2rem red;
 }
 
 .cell.ship {

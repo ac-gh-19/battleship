@@ -1,4 +1,4 @@
-import GameController from "../src/logic/gameController.js";
+import Game from "../src/logic/game.js";
 import Player from "../src/logic/player.js";
 import Ship from "../src/logic/ship.js";
 
@@ -10,7 +10,7 @@ import Ship from "../src/logic/ship.js";
 test("Game Setup Initializes Two Player Instances", () => {
   let player1 = new Player("AC");
   let player2 = new Player("CPU");
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
   expect(game.player1).toBe(player1);
   expect(game.player2).toBe(player2);
 });
@@ -18,7 +18,7 @@ test("Game Setup Initializes Two Player Instances", () => {
 test("Switches Turns Between Players", () => {
   let player1 = new Player("AC", "Human");
   let player2 = new Player("CPU", "Computer");
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   expect(game.currentPlayer).toBe(game.player1);
   game.switchTurn();
@@ -30,7 +30,7 @@ test("Switches Turns Between Players", () => {
 test("Invalid Move Does Not Switch Turn", () => {
   let player1 = new Player("AC");
   let player2 = new Player();
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   expect(game.currentPlayer).toBe(game.player1);
   game.player1.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
@@ -44,7 +44,7 @@ test("Invalid Move Does Not Switch Turn", () => {
 test("Hitting Ship Doesn't Change Turn", () => {
   let player1 = new Player("AC");
   let player2 = new Player();
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   expect(game.currentPlayer).toBe(game.player1);
   game.player1.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
@@ -59,7 +59,7 @@ test("Hitting Ship Doesn't Change Turn", () => {
 test("Attacking Affects Opponent's Board", () => {
   let player1 = new Player("AC");
   let player2 = new Player("CPU");
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   game.player1.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
   game.player2.gameboard.placeShip(new Ship(3), [0, 0], "horizontal");
@@ -77,7 +77,7 @@ test("Attacking Affects Opponent's Board", () => {
 test("Prevents Attacking the Same Position", () => {
   let player1 = new Player("AC", "Human");
   let player2 = new Player("CPU", "Computer");
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   game.makeMove([0, 0]);
   expect(game.makeMove([0, 0])).toBe(false);
@@ -86,7 +86,7 @@ test("Prevents Attacking the Same Position", () => {
 test("Detects When Game is or Isn't Over", () => {
   let player1 = new Player("AC", "Human");
   let player2 = new Player("CPU", "Computer");
-  let game = new GameController(player1, player2);
+  let game = new Game(player1, player2);
 
   game.player1.gameboard.placeShip(new Ship(1), [0, 0], "horizontal");
   game.player2.gameboard.placeShip(new Ship(1), [0, 0], "horizontal");

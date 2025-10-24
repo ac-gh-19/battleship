@@ -1,6 +1,6 @@
-function createFrontPage(btnText) {
-  let div = document.createElement("div");
-  div.classList.add("pregame-card");
+function createFrontPage(playBtnText) {
+  let frontPage = document.createElement("div");
+  frontPage.classList.add("pregame-card");
 
   let input = document.createElement("input");
   input.id = "nameInput";
@@ -10,15 +10,15 @@ function createFrontPage(btnText) {
   input.classList.add("input-name");
   input.id = "inputName";
 
-  let btn = document.createElement("button");
-  btn.classList.add("play-btn");
-  btn.id = "playBtn";
-  btn.textContent = btnText;
+  let playBtn = document.createElement("button");
+  playBtn.classList.add("play-btn");
+  playBtn.id = "playBtn";
+  playBtn.textContent = playBtnText;
 
-  div.appendChild(input);
-  div.appendChild(btn);
+  frontPage.appendChild(input);
+  frontPage.appendChild(playBtn);
 
-  return div;
+  return { frontPage, playBtn, input };
 }
 
 export default createFrontPage;
