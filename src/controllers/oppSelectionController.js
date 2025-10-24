@@ -1,8 +1,8 @@
 import createOppSelectionModal from "../components/createOppModal";
 import Player from "../logic/player";
 import { loadFrontPage } from "./frontPageController";
-import { loadSetupPage } from "./setupPageController";
-import { loadGame } from "./loadGameController";
+import { loadSetupPage } from "./setupShipsController";
+import { loadGame } from "./gameController";
 
 export function loadOppSelection(playerName) {
   let oppSelectionModal = createOppSelectionModal(

@@ -3,7 +3,7 @@ import "../src/styles/pregameCard.css";
 import "./styles/oppModal.css";
 import "./styles/game.css";
 import "./styles/playerSetup.css";
-import { loadFrontPage } from "./app/frontPageController";
+import { loadFrontPage } from "./controllers/frontPageController";
 
 loadFrontPage();
 

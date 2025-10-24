@@ -1,7 +1,7 @@
-import { updateBoardUI } from "./helpers";
-import createBoard from "../../components/createBoard";
-import { createPlayerContainer } from "../../components/createPlayerContainer";
-import { createGame } from "../../components/createGameContainer";
+import { updateBoardUI } from "../controllers/helpers";
+import createBoard from "../components/createBoard";
+import { createPlayerContainer } from "../components/createPlayerContainer";
+import { createGame } from "../components/createGameContainer";
 
 export function createPlayerWrapperContainer(player) {
   let playerBoardUI = createBoard(player.name);
@@ -23,6 +23,8 @@ export function renderGameLayout(playerOne, playerTwo) {
   app.appendChild(gameContainer);
 
   return {
+    playerOneContainer,
+    playerTwoContainer,
     gameInfo,
     p1Board: playerOneContainer.querySelector(
       `[data-board="${playerOne.name}"]`,
@@ -31,6 +33,21 @@ export function renderGameLayout(playerOne, playerTwo) {
       `[data-board="${playerTwo.name}"]`,
     ),
   };
+}
+
+export function renderContainers(game, p1Container, p2Container) {
+  if (game.currentPlayer == game.player1) {
+    p1Container.classList.add("disableClick");
+    p2Container.classList.remove("disableClick");
+  } else {
+    p1Container.classList.remove("disableClick");
+    // Disables player one from clicking own board while
+    // CPU is making their moves
+    if (game.player2.type == "Computer") {
+      p1Container.style.pointerEvents = "none";
+    }
+    p2Container.classList.add("disableClick");
+  }
 }
 
 export function renderGameInfo(infoEl, game) {

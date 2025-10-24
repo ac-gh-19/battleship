@@ -23,9 +23,9 @@ export function loadSetupPage(p, callback) {
   // Random placement
   rdmBtn.addEventListener("click", () => {
     clearBoard(p);
+    // Resets our board so we fill our ships again
     ships = [5, 4, 3, 3, 2, 2];
     p.gameboard.randomlyPlaceShips(ships);
-    console.log(p.gameboard);
     ships = [];
     updateBoardUI(p, true);
     updateSetupInfo(shipsInfo, ships);
@@ -74,6 +74,7 @@ function handleCellHover(cell, player, ships, dirBtn) {
   let gameboard = player.gameboard;
 
   // Gets the length of our next ship we're placing
+  // so we can go and highlight the cells in direction
   let length = ships[ships.length - 1];
   let direction = dirBtn.textContent;
   let [x, y] = [Number(cell.dataset.x), Number(cell.dataset.y)];
