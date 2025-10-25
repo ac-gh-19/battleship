@@ -1,6 +1,6 @@
-import playerIMG from "../assets/player.svg";
-import computerIMG from "../assets/computer.svg";
-import exitBtnIMG from "../assets/closeBtn.svg";
+import playerIMG from "../../assets/player.svg";
+import computerIMG from "../../assets/computer.svg";
+import exitBtnIMG from "../../assets/closeBtn.svg";
 
 function createOppSelectionModal(title) {
   function createOppCard(name, imgSRC, id) {

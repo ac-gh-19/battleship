@@ -39,4 +39,5 @@ export function clearBoard(player) {
       }
     }
   }
+  player.gameboard.ships = [];
 }

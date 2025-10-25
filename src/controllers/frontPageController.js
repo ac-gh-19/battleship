@@ -1,5 +1,6 @@
-import createFrontPage from "../components/createFrontPage";
+import createFrontPage from "../ui/components/createFrontPage";
 import { loadOppSelection } from "./oppSelectionController";
+import "../styles/pregameCard.css";
 
 export function loadFrontPage(inputName = "") {
   let { frontPage, playBtn, input } = createFrontPage("ENTER THE WATERS");
