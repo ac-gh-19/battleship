@@ -1,10 +1,4 @@
-import "../src/styles/styles.css";
-import "../src/styles/pregameCard.css";
-import "./styles/oppModal.css";
-import "./styles/game.css";
-import "./styles/playerSetup.css";
-import { loadFrontPage } from "./controllers/frontPageController";
+import "./styles/styles.css";
+import { init } from "./controllers/gameController";
 
-loadFrontPage();
-
-console.log(2);
+init();

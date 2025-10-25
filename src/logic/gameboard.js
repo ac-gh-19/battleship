@@ -76,6 +76,12 @@ class Gameboard {
       ship.hit();
       this.hitCells.push([x, y]);
       result = "hit";
+      if (ship.health == 0) {
+        let index = this.ships.findIndex(
+          (wantThisShip) => ship == wantThisShip,
+        );
+        this.ships.splice(index, 1);
+      }
     }
     return result;
   }

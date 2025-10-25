@@ -5,6 +5,7 @@
   gap: clamp(3rem, 10vw, 5rem);
   flex-wrap: wrap;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .game-container {
@@ -26,19 +27,19 @@
 
 .player-container {
   flex: 1 1 0;
-  max-width: 35rem;
-  min-width: 15rem;
+  max-width: 40rem;
   padding-left: 3rem;
   padding-right: 3rem;
   opacity: 1;
-  transition: opacity 400ms,
-  transform 400ms;
+  transition:
+    opacity 400ms,
+    transform 400ms;
 }
 
 .player-container.disableClick {
   pointer-events: none;
-  opacity: .5;
-  transform: scale(.95);
+  opacity: 0.5;
+  transform: scale(0.95);
 }
 
 .player-container.inactive {
@@ -54,15 +55,18 @@
 }
 
 .player-info > h2 {
-  border-bottom: 1px solid white;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.player-info > p {
+  font-size: clamp(1rem, 5vw, 1.5rem);
 }
 
 .board-wrapper {
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-columns: 2rem 1fr;
+  grid-template-rows: 1fr 2rem;
   width: 100%;
-  max-width: 35rem;
 }
 
 .bottom-cords {

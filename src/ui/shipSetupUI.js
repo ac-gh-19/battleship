@@ -1,4 +1,4 @@
-import { createShipSetup } from "../components/createShipSetup";
+import { createShipSetup } from "./components/createShipSetup";
 
 export function renderSetupShips(player) {
   let app = document.querySelector("#app");

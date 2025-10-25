@@ -1,11 +1,11 @@
 import { updateBoardUI } from "../controllers/helpers";
-import createBoard from "../components/createBoard";
-import { createPlayerContainer } from "../components/createPlayerContainer";
-import { createGame } from "../components/createGameContainer";
+import createBoard from "./components/createBoard";
+import { createPlayerContainer } from "./components/createPlayerContainer";
+import { createGame } from "./components/createGameContainer";
 
-export function createPlayerWrapperContainer(player) {
+export function createPlayerWrapperContainer(player, numPlayer) {
   let playerBoardUI = createBoard(player.name);
-  let playerContainer = createPlayerContainer(player, playerBoardUI);
+  let playerContainer = createPlayerContainer(player, playerBoardUI, numPlayer);
   return playerContainer;
 }
 
@@ -13,8 +13,8 @@ export function renderGameLayout(playerOne, playerTwo) {
   let app = document.querySelector("#app");
   app.textContent = "";
 
-  let playerOneContainer = createPlayerWrapperContainer(playerOne);
-  let playerTwoContainer = createPlayerWrapperContainer(playerTwo);
+  let playerOneContainer = createPlayerWrapperContainer(playerOne, "first");
+  let playerTwoContainer = createPlayerWrapperContainer(playerTwo, "second");
   let { gameInfo, gameContainer } = createGame(playerOne, playerTwo);
 
   gameContainer.append(playerOneContainer);
@@ -56,9 +56,18 @@ export function renderGameInfo(infoEl, game) {
   } else {
     infoEl.textContent = `${game.currentPlayer.name}'s Turn!`;
   }
+  renderPlayerShipsInfo(game);
 }
 
 export function renderBoards(playerOne, playerTwo) {
   updateBoardUI(playerOne);
   updateBoardUI(playerTwo);
+}
+
+export function renderPlayerShipsInfo(game) {
+  let p1Info = document.querySelector(`#firstPlayer`);
+  let p2Info = document.querySelector(`#secondPlayer`);
+
+  p1Info.textContent = `Ships Left: ${game.player1.gameboard.ships.length}`;
+  p2Info.textContent = `Ships Left: ${game.player2.gameboard.ships.length}`;
 }

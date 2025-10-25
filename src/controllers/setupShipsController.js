@@ -2,6 +2,7 @@ import Ship from "../logic/ship";
 import { updateBoardUI } from "./helpers";
 import { clearBoard } from "./helpers";
 import { renderSetupShips, updateSetupInfo } from "../ui/shipSetupUI";
+import "../styles/playerSetup.css";
 
 export function loadSetupPage(p, callback) {
   let ships = [5, 4, 3, 3, 2, 2];

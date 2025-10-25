@@ -14,7 +14,7 @@
   background: none;
   border-bottom-color: white;
   color: white;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
 
 .play-btn {
